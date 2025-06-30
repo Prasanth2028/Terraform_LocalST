@@ -65,6 +65,15 @@ stages:
           inputs:
             terraformVersion: 'latest'
         - task: AzureCLI@2
+          displayName: 'Terraform Init'
+          inputs:
+            azureSubscription: '$(AZURE_SERVICE_CONNECTION_NAME)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            workingDirectory: '$(TF_WORKING_DIR)'
+            inlineScript: |
+              terraform init
+        - task: AzureCLI@2
           displayName: 'Terraform Apply'
           inputs:
             azureSubscription: '$(AZURE_SERVICE_CONNECTION_NAME)'

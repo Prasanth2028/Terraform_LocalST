@@ -5,7 +5,12 @@ terraform {
       version = ">= 3.0.0"
     }
   }
-  # No backend block, so state will be stored locally
+  backend "azurerm" {
+    resource_group_name  = "RG-02"
+    storage_account_name = "saterraformstatefile001"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
