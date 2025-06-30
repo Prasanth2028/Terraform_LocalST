@@ -16,6 +16,10 @@ stages:
     - job: InitPlanJob
       displayName: 'Terraform Init and Plan Job'
       steps:
+        - task: TerraformInstaller@1
+          displayName: 'Install Terraform'
+          inputs:
+            terraformVersion: 'latest'
         - task: AzureCLI@2
           displayName: 'Terraform Init'
           inputs:
@@ -34,6 +38,8 @@ stages:
             workingDirectory: '$(TF_WORKING_DIR)'
             inlineScript: |
               terraform plan
+        - publish: $(TF_WORKING_DIR)/terraform.tfstate
+          artifact: tfstate
 
 - stage: Approval
   displayName: 'Manual Approval'
@@ -56,6 +62,12 @@ stages:
     - job: ApplyJob
       displayName: 'Terraform Apply Job'
       steps:
+        - download: current
+          artifact: tfstate
+        - task: TerraformInstaller@1
+          displayName: 'Install Terraform'
+          inputs:
+            terraformVersion: 'latest'
         - task: AzureCLI@2
           displayName: 'Terraform Apply'
           inputs:
@@ -64,4 +76,5 @@ stages:
             scriptLocation: 'inlineScript'
             workingDirectory: '$(TF_WORKING_DIR)'
             inlineScript: |
+              cp $(Pipeline.Workspace)/tfstate/terraform.tfstate $(TF_WORKING_DIR)/terraform.tfstate
               terraform apply -auto-approve
