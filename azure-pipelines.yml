@@ -16,24 +16,24 @@ stages:
     - job: InitPlanJob
       displayName: 'Terraform Init and Plan Job'
       steps:
-        - task: TerraformInstaller@1
-          displayName: 'Install Terraform'
-          inputs:
-            terraformVersion: 'latest'
-        - task: TerraformTaskV4@4
+        - task: AzureCLI@2
           displayName: 'Terraform Init'
           inputs:
-            provider: 'azurerm'
-            command: 'init'
+            azureSubscription: '$(AZURE_SERVICE_CONNECTION_NAME)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
             workingDirectory: '$(TF_WORKING_DIR)'
-            backendServiceArm: '$(AZURE_SERVICE_CONNECTION_NAME)'
-        - task: TerraformTaskV4@4
+            inlineScript: |
+              terraform init
+        - task: AzureCLI@2
           displayName: 'Terraform Plan'
           inputs:
-            provider: 'azurerm'
-            command: 'plan'
+            azureSubscription: '$(AZURE_SERVICE_CONNECTION_NAME)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
             workingDirectory: '$(TF_WORKING_DIR)'
-            environmentServiceNameAzureRM: '$(AZURE_SERVICE_CONNECTION_NAME)'
+            inlineScript: |
+              terraform plan
 
 - stage: Approval
   displayName: 'Manual Approval'
@@ -56,16 +56,12 @@ stages:
     - job: ApplyJob
       displayName: 'Terraform Apply Job'
       steps:
-        - task: TerraformInstaller@1
-          displayName: 'Install Terraform'
-          inputs:
-            terraformVersion: 'latest'
-        - task: TerraformTaskV4@4
+        - task: AzureCLI@2
           displayName: 'Terraform Apply'
           inputs:
-            provider: 'azurerm'
-            command: 'apply'
+            azureSubscription: '$(AZURE_SERVICE_CONNECTION_NAME)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
             workingDirectory: '$(TF_WORKING_DIR)'
-            environmentServiceNameAzureRM: '$(AZURE_SERVICE_CONNECTION_NAME)'
-            args: '-auto-approve'
-            allowTelemetryCollection: false
+            inlineScript: |
+              terraform apply -auto-approve
