@@ -16,10 +16,10 @@ stages:
     - job: InitPlanJob
       displayName: 'Terraform Init and Plan Job'
       steps:
-        - task: UseTerraform@0
+        - task: TerraformInstaller@1
           displayName: 'Install Terraform'
           inputs:
-            terraformVersion: '$(TF_VERSION)'
+            terraformVersion: 'latest'
         - task: TerraformTaskV4@4
           displayName: 'Terraform Init'
           inputs:
@@ -56,10 +56,10 @@ stages:
     - job: ApplyJob
       displayName: 'Terraform Apply Job'
       steps:
-        - task: UseTerraform@0
+        - task: TerraformInstaller@1
           displayName: 'Install Terraform'
           inputs:
-            terraformVersion: '$(TF_VERSION)'
+            terraformVersion: 'latest'
         - task: TerraformTaskV4@4
           displayName: 'Terraform Apply'
           inputs:
