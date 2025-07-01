@@ -164,7 +164,7 @@ stages:
             displayName: 'Terraform Apply'
             inputs:
               provider: 'azurerm'
-              command: 'init'
+              command: 'apply' 
               backendServiceArm: 'ADO'
               backendAzureRmStorageAccountName: 'saterraformstatefile001'
               backendAzureRmContainerName: 'tfstate'
