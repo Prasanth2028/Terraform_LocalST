@@ -1,0 +1,88 @@
+triggers:
+  -main
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  TF_VERSION: '1.7.5' # Specify the Terraform version
+  AZURE_SERVICE_CONNECTION_NAME: 'ADO' # Azure service connection name
+  TF_WORKING_DIR: '$(System.DefaultWorkingDirectory)' # Working directory for Terraform
+
+stages:
+  - stage: InitPlan
+    displayName: 'Terraform Init and Plan'
+    jobs:
+      - job: TerraformPlan
+        displayName: 'Terraform Init and Plan'
+        steps:
+          - task: TerraformInstaller@1
+            displayName: 'Install Terraform'
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTask@5
+            displayName: 'Terraform Init'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'ADO'
+              backendAzureRmStorageAccountName: 'saterraformstatefile001'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+          - task: TerraformTask@5
+            displayName: 'Terraform Plan'
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'ADO'
+
+  - stage: Approval
+    displayName: 'Manual Approval'
+    dependsOn: InitPlan
+    jobs:
+      - deployment: WaitForApproval
+        displayName: 'Approval Before Apply'
+        environment: 'Approvals'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Waiting for approval before proceeding to Terraform Apply"
+                  displayName: 'Approval Step'
+
+  - stage: Apply
+    displayName: 'Apply Terraform Changes'
+    dependsOn: Approval
+    jobs:
+      - job: TerraformApply
+        displayName: 'Terraform Apply'
+        steps:
+          - task: TerraformInstaller@1
+            displayName: 'Install Terraform'
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTask@5
+            displayName: 'Terraform Init'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'ADO'
+              backendAzureRmStorageAccountName: 'saterraformstatefile001'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+          - task: TerraformTask@5
+            displayName: 'Terraform Plan'
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'ADO'
+          - task: TerraformTask@5
+            displayName: 'Terraform Apply'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'ADO'
+              backendAzureRmStorageAccountName: 'saterraformstatefile001'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+    
+

@@ -19,6 +19,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = var.resource_group_name
+  for_each = toset(var.resource_group_names)
+  name     = each.value
   location = var.location
 }
