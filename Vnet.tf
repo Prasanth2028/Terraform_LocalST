@@ -1,5 +1,5 @@
 module "virtual_network" {
-  source              = "./Module/virtualNetwork"
+  source              = "./Module/VirtualNetwork"
   resource_group_name = azurerm_resource_group.main[0].name
   location            = azurerm_resource_group.name.location
   vnet_name           = "virtual-etwork-terraform-01"
