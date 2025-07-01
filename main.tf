@@ -22,5 +22,5 @@ resource "azurerm_resource_group" "main" {
   for_each = toset(var.resource_group_names)
   name     = each.value
   location = var.location
-  tags    = vars.tags
+  tags     = var.tags  # Uncomment and define var.tags in variables.tf if you want to use tags
 }
