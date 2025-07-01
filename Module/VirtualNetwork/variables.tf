@@ -24,16 +24,33 @@ variable "dns_servers" {
   default     = []
 }
 
-variable "subnets" {
-  description = "A list of subnets to create."
-  type = list(object({
-    name             = string
-    address_prefixes = list(string)
-  }))
+variable "nsg_name" {
+  description = "The name of the network security group."
+  type        = string
+}
+
+variable "subnet1_name" {
+  description = "The name of the first subnet."
+  type        = string
+}
+
+variable "subnet1_address_prefixes" {
+  description = "The address prefixes for the first subnet."
+  type        = list(string)
+}
+
+variable "subnet2_name" {
+  description = "The name of the second subnet."
+  type        = string
+}
+
+variable "subnet2_address_prefixes" {
+  description = "The address prefixes for the second subnet."
+  type        = list(string)
 }
 
 variable "tags" {
-  description = "Tags to assign to the virtual network."
+  description = "Tags to assign to the virtual network and NSG."
   type        = map(string)
   default     = {}
 }
