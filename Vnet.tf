@@ -1,7 +1,7 @@
 module "virtual_network" {
   source              = "./Module/VirtualNetwork"
   resource_group_name = azurerm_resource_group.main[0].name
-  location            = azurerm_resource_group.name.location
+  location            = azurerm_resource_group.main[0].location
   vnet_name           = "virtual-etwork-terraform-01"
   address_space       = ["10.0.0.0/16"]
   dns_servers         = ["10.0.0.4", "10.0.0.5"]
