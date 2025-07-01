@@ -89,7 +89,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  TF_VERSION: '1.7.5' # Specify the Terraform version
+  TF_VERSION: '1.7.5' # Specify the Terraform version 
   AZURE_SERVICE_CONNECTION_NAME: 'ADO' # Azure service connection name
   TF_WORKING_DIR: '$(System.DefaultWorkingDirectory)' # Working directory for Terraform
 
