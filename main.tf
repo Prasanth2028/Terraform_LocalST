@@ -24,3 +24,6 @@ resource "azurerm_resource_group" "main" {
   location = var.location
   tags     = var.tags  # Uncomment and define var.tags in variables.tf if you want to use tags
 }
+
+
+#ddd
