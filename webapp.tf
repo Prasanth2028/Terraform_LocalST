@@ -8,12 +8,9 @@ resource "azurerm_app_service_plan" "webapp_plan" {
   }
 }
 
-module "webapp" {
-  source                = "github.com/ModuleASDA/terraform-azurerm-web-app"
-  app_name              = "my-webapp"
-  resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
-  app_service_plan_id   = azurerm_app_service_plan.webapp_plan.id
-  always_on             = false
-  # Add other required variables as needed by the module
+resource "azurerm_linux_web_app" "webapp" {
+  name                = "my-webapp"
+  location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+  resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+  service_plan_id     = azurerm_app_service_plan.webapp_plan.id
 }
