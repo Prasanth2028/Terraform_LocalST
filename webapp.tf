@@ -8,11 +8,20 @@ resource "azurerm_app_service_plan" "webapp_plan" {
   }
 }
 
+resource "azurerm_log_analytics_workspace" "webapp_logs" {
+  name                = "webapp-logs"
+  location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+  resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 module "webapp" {
   source                = "github.com/ModuleASDA/terraform-azurerm-web-app"
-  name                  = "my-webapp"
+  app_name              = "my-webapp"
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   app_service_plan_id   = azurerm_app_service_plan.webapp_plan.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.webapp_logs.id
   # Add other required variables as needed by the module
 }
