@@ -14,5 +14,6 @@ module "webapp" {
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   app_service_plan_id   = azurerm_app_service_plan.webapp_plan.id
+  always_on             = false
   # Add other required variables as needed by the module
 }
