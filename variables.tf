@@ -13,11 +13,11 @@ variable "location" {
 variable "tags" {
   description = "Tags to apply to the resource groups."
   type        = map(string)
-  default     = {
+  default = {
     Environment = "Development"
     Project     = "Terraform"
     created_by  = "Terraform Script"
     purpose     = "Resource Group Creation"
   }
-  
+
 }
