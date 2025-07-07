@@ -58,3 +58,38 @@ resource "azurerm_subnet" "manual_subnet3" {
   virtual_network_name = azurerm_virtual_network.manual.name
   address_prefixes     = ["10.0.3.0/24"]
 }
+
+# Manual VNet and Subnets Creation with import from portal
+#terraform import azurerm_virtual_network.manual1 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/Virtual-Network-Manual-02
+resource "azurerm_virtual_network" "manual1" {
+  name                = "Virtual-Network-Manual-02"
+  resource_group_name = "Resource_Group_Terraform_01"
+  location            = "East US"
+  address_space       = ["10.0.0.0/16"]
+}
+
+#terraform import azurerm_subnet.manual_subnet01 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/Virtual-Network-Manual-02/subnets/Subnet01
+resource "azurerm_subnet" "manual_subnet01" {
+  name                 = "Subnet01"
+  resource_group_name  = "Resource_Group_Terraform_01"
+  virtual_network_name = azurerm_virtual_network.manual1.name
+  address_prefixes     = ["10.0.0.0/25"]
+}
+
+#terraform import azurerm_subnet.manual_subnet02 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/Virtual-Network-Manual-02/subnets/Subnet02
+resource "azurerm_subnet" "manual_subnet02" {
+  name                 = "Subnet02"
+  resource_group_name  = "Resource_Group_Terraform_01"
+  virtual_network_name = azurerm_virtual_network.manual1.name
+  address_prefixes     = ["10.0.2.0/25"]
+}
+
+#terraform import azurerm_subnet.manual_subnet03 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/Virtual-Network-Manual-02/subnets/Subnet03
+resource "azurerm_subnet" "manual_subnet03" {
+  name                 = "Subnet03"
+  resource_group_name  = "Resource_Group_Terraform_01"
+  virtual_network_name = azurerm_virtual_network.manual1.name
+  address_prefixes     = ["10.0.3.0/25"]
+}
+
+
