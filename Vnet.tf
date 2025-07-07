@@ -81,7 +81,7 @@ resource "azurerm_subnet" "manual_subnet02" {
   name                 = "Subnet02"
   resource_group_name  = "Resource_Group_Terraform_01"
   virtual_network_name = azurerm_virtual_network.manual1.name
-  address_prefixes     = ["10.0.2.0/25"]
+  address_prefixes     = ["10.0.0.128/25"]
 }
 
 #terraform import azurerm_subnet.manual_subnet03 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/Virtual-Network-Manual-02/subnets/Subnet03
@@ -89,7 +89,7 @@ resource "azurerm_subnet" "manual_subnet03" {
   name                 = "Subnet03"
   resource_group_name  = "Resource_Group_Terraform_01"
   virtual_network_name = azurerm_virtual_network.manual1.name
-  address_prefixes     = ["10.0.3.0/25"]
+  address_prefixes     = ["10.0.1.0/25"]
 }
 
 
