@@ -9,12 +9,14 @@ resource "azurerm_app_service_plan" "webapp_plan" {
 }
 
 module "webapp" {
-  source              = "github.com/ModuleASDA/terraform-azurerm-web-app"
-  app_name            = "my-webapp-terraform-01"
-  resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  location            = "westeurope"
-  app_service_plan_id = azurerm_app_service_plan.webapp_plan.id
-  always_on           = false
+  source                            = "github.com/ModuleASDA/terraform-azurerm-web-app"
+  app_name                          = "my-webapp-terraform-01"
+  resource_group_name               = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+  location                          = "westeurope"
+  app_service_plan_id               = azurerm_app_service_plan.webapp_plan.id
+  always_on                         = false
+  ip_restriction_default_action     = "Allow"
+  scm_ip_restriction_default_action = "Allow"
   # log_analytics_workspace_id is now optional and omitted
   # Add other required variables as needed by the module
 }
