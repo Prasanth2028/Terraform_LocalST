@@ -44,9 +44,6 @@ resource "azurerm_linux_web_app" "example" {
   ftp_publish_basic_authentication_enabled = false
   https_only                               = true
   identity {
-    identity_ids = []
-    principal_id = "7800fa90-aa5a-4809-af24-4a8e1579d43b"
-    tenant_id    = "d4963ce2-af94-4122-95a9-644e8b01624d"
     type         = "SystemAssigned"
   }
 
