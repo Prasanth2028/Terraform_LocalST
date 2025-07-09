@@ -5,6 +5,7 @@ resource "azurerm_app_service_plan" "example" {
   location            = "Canada Central"
   resource_group_name = "Resource_Group_Terraform_01"
   kind                = "Linux"
+  reserved            = true
 
   sku {
     tier = "Basic"
