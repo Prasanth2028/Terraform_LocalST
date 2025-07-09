@@ -11,6 +11,11 @@ resource "azurerm_app_service_plan" "example" {
     tier = "Basic"
     size = "B1"
   }
+
+  tags = {
+    managed = "Terraform"
+    resource = "AppServicePlan"
+  }
 }
 
 
