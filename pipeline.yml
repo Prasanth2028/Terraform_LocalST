@@ -31,6 +31,7 @@ stages:
           - script: |
               set -e
               terraform import azurerm_app_service_plan.example /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Web/serverFarms/ASP-manual-01
+            displayName: 'Terraform Import ASP'
           - task: TerraformTask@5
             displayName: 'Terraform Plan'
             inputs:
@@ -87,5 +88,5 @@ stages:
               backendAzureRmStorageAccountName: 'saterraformstatefile001'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
-    
+
 
