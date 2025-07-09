@@ -114,14 +114,14 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
           # to import the resource
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: 'ADO'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                terraform init
-                terraform import azurerm_linux_web_app.example /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Web/sites/webapp-manual-01
+          # - task: AzureCLI@2
+          #   inputs:
+          #     azureSubscription: 'ADO'
+          #     scriptType: 'bash'
+          #     scriptLocation: 'inlineScript'
+          #     inlineScript: |
+          #       terraform init
+          #       terraform import azurerm_linux_web_app.example /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Web/sites/webapp-manual-01
           - task: TerraformTask@5
             displayName: 'Terraform Plan'
             inputs:
