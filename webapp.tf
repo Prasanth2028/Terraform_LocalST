@@ -25,12 +25,29 @@ resource "azurerm_linux_web_app" "example" {
   name                = "webapp-manual-01"
   resource_group_name = azurerm_app_service_plan.example.resource_group_name
   location            = azurerm_app_service_plan.example.location
-  service_plan_id = azurerm_app_service_plan.example.id
+  service_plan_id     = azurerm_app_service_plan.example.id
   site_config {
-    always_on = false
-    }
+    always_on        = false
+    app_command_line = "dotnet DemoFirstAppAzure.dll"
+    ftps_state       = "FtpsOnly"
+  }
   tags = {
-    managed = "Terraform"
+    managed  = "Terraform"
     resource = "WebApp"
   }
+  app_settings = {
+    "WEBSITE_AUTH_AAD_ALLOWED_TENANTS" = "d4963ce2-af94-4122-95a9-644e8b01624d"
+    "WEBSITE_ENABLE_SYNC_UPDATE_SITE"  = "true"
+    "WEBSITE_WEBDEPLOY_USE_SCM"        = "False"
+  }
+  client_affinity_enabled                  = true
+  ftp_publish_basic_authentication_enabled = false
+  https_only                               = true
+  identity {
+    identity_ids = []
+    principal_id = "7800fa90-aa5a-4809-af24-4a8e1579d43b"
+    tenant_id    = "d4963ce2-af94-4122-95a9-644e8b01624d"
+    type         = "SystemAssigned"
+  }
+
 }

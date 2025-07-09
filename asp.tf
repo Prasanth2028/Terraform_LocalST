@@ -13,7 +13,7 @@ resource "azurerm_app_service_plan" "example" {
   }
 
   tags = {
-    managed = "Terraform"
+    managed  = "Terraform"
     resource = "AppServicePlan"
   }
 }
