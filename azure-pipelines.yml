@@ -112,7 +112,7 @@ stages:
               backendServiceArm: 'ADO'
               backendAzureRmStorageAccountName: 'saterraformstatefile001'
               backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'terraformv2.tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
           # to import the resource
           # - task: AzureCLI@2
           #   inputs:
@@ -162,7 +162,7 @@ stages:
               backendServiceArm: 'ADO'
               backendAzureRmStorageAccountName: 'saterraformstatefile001'
               backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'terraformv2.tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
           - task: TerraformTask@5
             displayName: 'Terraform Plan'
             inputs:
