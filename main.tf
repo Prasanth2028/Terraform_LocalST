@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "RG-02"
     storage_account_name = "saterraformstatefile001"
     container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    key                  = "terraformv2.tfstate"
   }
 }
 
