@@ -113,8 +113,8 @@ stages:
               scriptLocation: 'inlineScript'
               inlineScript: |
                 export GIT_ASKPASS=true
-                export GIT_TOKEN=$(GIT_TOKEN)
-                export GITHUB_TOKEN=$(GIT_TOKEN)
+                export GIT_TOKEN="$GIT_TOKEN"
+                export GITHUB_TOKEN="$GIT_TOKEN"
 
                 terraform init \
                   -backend-config="storage_account_name=saterraformstatefile001" \
@@ -178,8 +178,8 @@ stages:
               scriptLocation: 'inlineScript'
               inlineScript: |
                 export GIT_ASKPASS=true
-                export GIT_TOKEN=$(GIT_TOKEN)
-                export GITHUB_TOKEN=$(GIT_TOKEN)
+                export GIT_TOKEN="$GIT_TOKEN"
+                export GITHUB_TOKEN="$GIT_TOKEN"
 
                 terraform init \
                   -backend-config="storage_account_name=saterraformstatefile001" \
