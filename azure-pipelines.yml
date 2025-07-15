@@ -90,9 +90,14 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  TF_VERSION: '1.7.5' # Specify the Terraform version 
-  AZURE_SERVICE_CONNECTION_NAME: 'ADO' # Azure service connection name
-  TF_WORKING_DIR: '$(System.DefaultWorkingDirectory)' # Working directory for Terraform
+  - group: GitHubSecrets
+# Local variables
+  - name: TF_VERSION
+    value: '1.7.5' # Specify the Terraform version
+  - name: AZURE_SERVICE_CONNECTION_NAME
+    value: 'ADO' # Azure service connection name
+  - name: TF_WORKING_DIR
+    value: '$(System.DefaultWorkingDirectory)' # Working directory for Terraform
 
 stages:
   - stage: InitPlan
@@ -105,21 +110,12 @@ stages:
             displayName: 'Install Terraform'
             inputs:
               terraformVersion: 'latest'
-          # - task: AzureCLI@2
-          #   displayName: 'Terraform Init with GIT_TOKEN'
-          #   inputs:
-          #     azureSubscription: 'ADO'
-          #     scriptType: 'bash'
-          #     scriptLocation: 'inlineScript'
-          #     inlineScript: |
-          #       export GIT_ASKPASS=true
-          #       export GIT_TOKEN="$GIT_TOKEN"
-          #       export GITHUB_TOKEN="$GIT_TOKEN"
-
-          #       terraform init \
-          #         -backend-config="storage_account_name=saterraformstatefile001" \
-          #         -backend-config="container_name=tfstate" \
-          #         -backend-config="key=terraform.tfstate"
+          - task: Bash@3
+            displayName: 'Configure GitHub Token for Private Module Access'
+            inputs:
+              targetType: 'inline'
+              script: |
+                git config --global url."https://$(GITHUB_TOKEN)@github.com/".insteadOf "https://github.com/"
           - task: TerraformTask@5
             displayName: 'Terraform Init'
             inputs:
@@ -129,7 +125,7 @@ stages:
               backendAzureRmStorageAccountName: 'saterraformstatefile001'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
-          # to import the resource
+         # to import the resource
           # - task: AzureCLI@2
           #   inputs:
           #     azureSubscription: 'ADO'
@@ -170,30 +166,21 @@ stages:
             displayName: 'Install Terraform'
             inputs:
               terraformVersion: 'latest'
-          - task: AzureCLI@2
-            displayName: 'Terraform Init with GIT_TOKEN'
+          - task: Bash@3
+            displayName: 'Configure GitHub Token for Private Module Access'
             inputs:
-              azureSubscription: 'ADO'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                export GIT_ASKPASS=true
-                export GIT_TOKEN="$GIT_TOKEN"
-                export GITHUB_TOKEN="$GIT_TOKEN"
-
-                terraform init \
-                  -backend-config="storage_account_name=saterraformstatefile001" \
-                  -backend-config="container_name=tfstate" \
-                  -backend-config="key=terraform.tfstate"
-          # - task: TerraformTask@5
-          #   displayName: 'Terraform Init'
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'init'
-          #     backendServiceArm: 'ADO'
-          #     backendAzureRmStorageAccountName: 'saterraformstatefile001'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     backendAzureRmKey: 'terraform.tfstate'
+              targetType: 'inline'
+              script: |
+                git config --global url."https://$(GITHUB_TOKEN)@github.com/".insteadOf "https://github.com/"
+          - task: TerraformTask@5
+            displayName: 'Terraform Init'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'ADO'
+              backendAzureRmStorageAccountName: 'saterraformstatefile001'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
           - task: TerraformTask@5
             displayName: 'Terraform Plan'
             inputs:
@@ -206,5 +193,5 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'ADO'
-    
+
 
