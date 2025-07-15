@@ -105,30 +105,30 @@ stages:
             displayName: 'Install Terraform'
             inputs:
               terraformVersion: 'latest'
-          - task: AzureCLI@2
-            displayName: 'Terraform Init with GIT_TOKEN'
-            inputs:
-              azureSubscription: 'ADO'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                export GIT_ASKPASS=true
-                export GIT_TOKEN="$GIT_TOKEN"
-                export GITHUB_TOKEN="$GIT_TOKEN"
-
-                terraform init \
-                  -backend-config="storage_account_name=saterraformstatefile001" \
-                  -backend-config="container_name=tfstate" \
-                  -backend-config="key=terraform.tfstate"
-          # - task: TerraformTask@5
-          #   displayName: 'Terraform Init'
+          # - task: AzureCLI@2
+          #   displayName: 'Terraform Init with GIT_TOKEN'
           #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'init'
-          #     backendServiceArm: 'ADO'
-          #     backendAzureRmStorageAccountName: 'saterraformstatefile001'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     backendAzureRmKey: 'terraform.tfstate'
+          #     azureSubscription: 'ADO'
+          #     scriptType: 'bash'
+          #     scriptLocation: 'inlineScript'
+          #     inlineScript: |
+          #       export GIT_ASKPASS=true
+          #       export GIT_TOKEN="$GIT_TOKEN"
+          #       export GITHUB_TOKEN="$GIT_TOKEN"
+
+          #       terraform init \
+          #         -backend-config="storage_account_name=saterraformstatefile001" \
+          #         -backend-config="container_name=tfstate" \
+          #         -backend-config="key=terraform.tfstate"
+          - task: TerraformTask@5
+            displayName: 'Terraform Init'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'ADO'
+              backendAzureRmStorageAccountName: 'saterraformstatefile001'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
           # to import the resource
           # - task: AzureCLI@2
           #   inputs:
