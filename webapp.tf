@@ -44,7 +44,7 @@ resource "azurerm_linux_web_app" "example" {
   ftp_publish_basic_authentication_enabled = false
   https_only                               = true
   identity {
-    type         = "SystemAssigned"
+    type = "SystemAssigned"
   }
 
 }
