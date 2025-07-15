@@ -8,8 +8,8 @@ resource "azurerm_app_service_plan" "example" {
   reserved            = true
 
   sku {
-    tier = "Basic"
-    size = "B1"
+    tier = "Free"
+    size = "F1"
   }
 
   tags = {
