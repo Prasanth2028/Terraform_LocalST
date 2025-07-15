@@ -27,3 +27,14 @@ variable "storage_account_name" {
   type        = string
   default     = "terraform"
 }
+
+variable "satags" {
+  description = "values for storage account tags"
+  type        = map(string)
+  default = {
+    environment = "Production"
+    project     = "Terraform"
+    created_by  = "Terraform Script"
+    purpose     = "Storage Account Creation"
+  }
+}

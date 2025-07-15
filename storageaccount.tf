@@ -4,5 +4,6 @@ module "storageaccount" {
   location                 = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name      = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  replication_type         = "LRS"
+  tags                     = var.satags
 }
