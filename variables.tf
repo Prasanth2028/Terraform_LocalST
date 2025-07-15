@@ -21,3 +21,9 @@ variable "tags" {
   }
 
 }
+
+variable "storage_account_name" {
+  description = "The name of the storage account to create."
+  type        = string
+  default     = "terraform"
+}

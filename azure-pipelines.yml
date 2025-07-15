@@ -83,6 +83,7 @@
 #             inlineScript: |
 #               terraform apply -auto-approve
 
+# comments do 
 trigger:
   - main
 pool:
