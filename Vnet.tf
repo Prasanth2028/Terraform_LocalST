@@ -36,7 +36,7 @@ resource "azurerm_virtual_network" "manual" {
 
 #terraform import azurerm_subnet.manual_subnet1 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/virtual-network-manual-01/subnets/Subnet1
 #terraform import azurerm_subnet.manual_subnet2 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/virtual-network-manual-01/subnets/Subnet2
-#terraform import azurerm_subnet.manual_subnet3 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/virtual-network-manual-01/subnets/Subnet3
+#terraform import azurerm_subnet.manual_subnet3 /subscriptions/292ccf82-092b-41c5-8723-0bbfad3a4080/resourceGroups/Resource_Group_Terraform_01/providers/Microsoft.Network/virtualNetworks/virtual-network-manual-01/subnets/Subnet3 
 
 resource "azurerm_subnet" "manual_subnet1" {
   name                 = "Subnet1"
