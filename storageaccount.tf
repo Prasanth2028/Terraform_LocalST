@@ -6,4 +6,5 @@ module "storageaccount" {
   account_tier             = "Standard"
   replication_type         = "LRS"
   tags                     = var.satags
+  shared_access_key_enabled = false
 }
