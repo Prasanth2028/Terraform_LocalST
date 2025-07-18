@@ -21,7 +21,7 @@ module "webapp" {
     environment = "Production"
   }
   # log_analytics_workspace_id is now optional and omitted
-  # Add other required variables as needed by the module
+  # Add other required variables as needed by the module 
 }
 
 resource "azurerm_linux_web_app" "example" {
