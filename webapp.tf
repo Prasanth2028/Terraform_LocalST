@@ -17,6 +17,9 @@ module "webapp" {
   always_on                         = false
   ip_restriction_default_action     = "Allow"
   scm_ip_restriction_default_action = "Allow"
+  tags = {
+    environment = "Production"
+  }
   # log_analytics_workspace_id is now optional and omitted
   # Add other required variables as needed by the module
 }
