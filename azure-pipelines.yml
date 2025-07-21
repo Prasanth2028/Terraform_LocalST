@@ -171,12 +171,17 @@ stages:
             displayName: 'Install Terraform'
             inputs:
               terraformVersion: 'latest'
-          - task: Bash@3
-            displayName: 'Configure GitHub Token for Private Module Access'
+          # - task: Bash@3
+          #   displayName: 'Configure GitHub Token for Private Module Access'
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       git config --global url."https://$(GITHUB_TOKEN)@github.com/".insteadOf "https://github.com/"
+          - task: InstallSSHKey@0
             inputs:
-              targetType: 'inline'
-              script: |
-                git config --global url."https://$(GITHUB_TOKEN)@github.com/".insteadOf "https://github.com/"
+              knownHostsEntry: 'ssh.github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg='
+              sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCR/V3xFP3JCnyyoPBQZC6h47jy1HKpIfR3G/6VF4Eee6hiVLEuWbfGKVh3KLNxurX38UnNcJ2W95rfeLJ6ge5VCMS4CURrwTXFPGFfkZxHoWP774dlv6OoHOjwzDSH/kIy6Bp8BA9ul+wk/dGhacw99ZHaU4UECuo3Y/++QLFKPL+c7jFcGym0h5hMrrGVVslS5sWCUbugmFnUwJHfXXYGlMYsBLRyKFUvgOyRxVLhuS0d1YXPbn7Tpj2wpYApoDz3+hN+s5Xreuf7DMN3v9DigjIRP4E0XYfdlEImsGRTstEQjXKbHtOAY1Zh53+7K5aLf+GFx9Tf34GG3ZTgcWV0Yu+Slpti/I2xyuGyZOcol6+PGXYFpRxVNTFly0fhFbS+tmHsE7OF0KqSWkpUJngCy3MY4MqRtI01sABe2q+3QWDIv+T3KVWdxJ5Cd2kGd1hUcVhGB7hI1AaXHh9xf6R4u0jqEQZo2hkfaJGTPgjU7QJSr0P8SiRxEJ4hy83KCN74jldSTwIt5hM9DrnGO8nF6wPfojXrqbR/L9F35cUvofBJ1SDZBq6uTIGpoKFWUE+H8gPSd/maQob3O3f3ShmK4gh8OM6sb/6MJ9Q7Vl/O8+rGFqs6ueL0UJRHuG+TAjRR2olUtFhF7FssA1qUb5NGLGGdxollq65QkdVb1DVPw== prasanth.k2028@gmail.com'
+              sshKeySecureFile: 'privatekey'
           - task: TerraformTask@5
             displayName: 'Terraform Init'
             inputs:
