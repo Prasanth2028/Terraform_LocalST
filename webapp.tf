@@ -10,7 +10,7 @@ resource "azurerm_app_service_plan" "webapp_plan" {
 
 module "webapp" {
   #source                            = "git::https://github.com/Prasanth2028/terraform-azurerm-web-app.git?ref=Version-1.0"
-  source                            = "git@github.com/Prasanth2028/terraform-azurerm-web-app.git?ref=Version-1.0"
+  source                            = "git@github.com:Prasanth2028/terraform-azurerm-web-app.git?ref=Version-1.0"
   app_name                          = "my-webapp-terraform-01"
   resource_group_name               = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   location                          = "westeurope"
