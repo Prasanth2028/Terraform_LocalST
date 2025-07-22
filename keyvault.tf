@@ -1,6 +1,6 @@
 module "keyvault" {
   #source = "git::https://github.com/ModuleASDA/Key-Vault.git"
-  source = "git@github.com:ModuleASDA/Key-Vault.git"
+  source = "git@github.com:ModuleASDA/Key-Vault.git?ref=V-1.0"
 
   #soft_delete_retention_days = 7
   purge_protection_enabled = false
