@@ -8,10 +8,9 @@ module "virtual-machine" {
   admin_password      = random_password.vm_password.result
   subnet_id           = module.virtual_network.subnet1_id
   size                = var.vm_size
-  image_os            = "Windows" # Use the module's default Windows Server 2019 image.
-  tags = {
-    environment = "Testing"
-    created_by  = "Terraform Script"
-    purpose     = "Virtual Machine Creation"
+  image_os = "windows"
+  os_disk = {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 }

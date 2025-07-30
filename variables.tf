@@ -52,13 +52,7 @@ variable "vm_size" {
 }
 
 variable "admin_username" {
-  description = "Administrator username for the virtual machine."
+  description = "Administrator username for the virtual machine. "
   type        = string
   default     = "azureuser"
-}
-
-variable "admin_password" {
-  description = "Administrator password for the virtual machine. This is a sensitive value and should be provided at runtime."
-  type        = string
-  sensitive   = true
 }
