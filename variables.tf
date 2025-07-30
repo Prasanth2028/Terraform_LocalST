@@ -38,3 +38,21 @@ variable "satags" {
     purpose     = "Storage Account Creation"
   }
 }
+
+variable "vm_name" {
+  description = "Name for the virtual machine."
+  type        = string
+  default     = "test-vm-windows-01"
+}
+
+variable "vm_size" {
+  description = "Size (SKU) of the virtual machine."
+  type        = string
+  default     = "Standard_B1s" # A cost-effective burstable size for testing.
+}
+
+variable "admin_username" {
+  description = "Administrator username for the virtual machine."
+  type        = string
+  default     = "azureuser"
+}
