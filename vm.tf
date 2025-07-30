@@ -9,7 +9,7 @@ module "virtual-machine" {
   subnet_id           = module.virtual_network.subnet1_id
   size                = var.vm_size
   image_os            = "windows"
-  os_simple           = "WindowsServer-2019-Datacenter"
+  os_simple           = "win2019datacenter"
   os_disk = {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"

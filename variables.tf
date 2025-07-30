@@ -25,11 +25,11 @@ variable "tags" {
 variable "storage_account_name" {
   description = "The name of the storage account to create."
   type        = string
-  default     = "terraform"
+  default     = "saaccountterraform01"
 }
 
-variable "satags" {
-  description = "values for storage account tags"
+variable "storage_account_tags" {
+  description = "Tags to apply to the storage account."
   type        = map(string)
   default = {
     environment = "Production"
@@ -48,7 +48,7 @@ variable "vm_name" {
 variable "vm_size" {
   description = "Size (SKU) of the virtual machine."
   type        = string
-  default     = "Standard_DS1_v2"
+  default     = "Standard_B1s" # A cost-effective burstable size for testing.
 }
 
 variable "admin_username" {
