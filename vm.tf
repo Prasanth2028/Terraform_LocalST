@@ -14,7 +14,4 @@ module "virtual-machine" {
     created_by  = "Terraform Script"
     purpose     = "Virtual Machine Creation"
   }
-  os_disk = {
-        storage_account_type = "Standard_LRS" # Default to Standard HDD for cost-effectiveness
-    }
 }

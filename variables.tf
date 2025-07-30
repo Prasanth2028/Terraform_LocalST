@@ -42,17 +42,23 @@ variable "satags" {
 variable "vm_name" {
   description = "Name for the virtual machine."
   type        = string
-  default     = "test-vm-windows-01"
+  default     = "vm-terraform-01"
 }
 
 variable "vm_size" {
   description = "Size (SKU) of the virtual machine."
   type        = string
-  default     = "Standard_B1s" # A cost-effective burstable size for testing.
+  default     = "Standard_DS1_v2"
 }
 
 variable "admin_username" {
   description = "Administrator username for the virtual machine."
   type        = string
   default     = "azureuser"
+}
+
+variable "admin_password" {
+  description = "Administrator password for the virtual machine. This is a sensitive value and should be provided at runtime."
+  type        = string
+  sensitive   = true
 }

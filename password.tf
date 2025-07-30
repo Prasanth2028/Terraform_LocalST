@@ -9,9 +9,9 @@ resource "random_password" "vm_password" {
 }
 
 resource "azurerm_key_vault_secret" "vm_admin_password" {
-  # Note: This assumes your Key Vault module has an output named `key_vault_id`.
+  # This assumes your Key Vault module has an output named `key_vault_id`.
   # If the output name is different, please adjust the reference below.
-  key_vault_id = module.keyvault.key_vault_id
+  key_vault_id = module.keyvault.KeyVaultId
   name         = "${var.vm_name}-admin-password"
   value        = random_password.vm_password.result
 
