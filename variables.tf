@@ -25,11 +25,11 @@ variable "tags" {
 variable "storage_account_name" {
   description = "The name of the storage account to create."
   type        = string
-  default     = "terraform"
+  default     = "saaccountterraform01" # More unique default to avoid naming collisions
 }
 
-variable "satags" {
-  description = "values for storage account tags"
+variable "storage_account_tags" {
+  description = "Tags to apply to the storage account."
   type        = map(string)
   default = {
     environment = "Production"

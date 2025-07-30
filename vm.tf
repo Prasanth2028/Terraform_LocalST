@@ -9,4 +9,8 @@ module "virtual-machine" {
   subnet_id           = module.virtual_network.subnet1_id
   size                = var.vm_size
   image_os            = "windows"
+  os_disk = {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
 }
