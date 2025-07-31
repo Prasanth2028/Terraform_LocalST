@@ -1,6 +1,6 @@
 module "keyvault" {
   #source                  = "git::https://github.com/ModuleASDA/Key-Vault.git" used as PAT token 
-  source                   = "git@github.com:ModuleASDA/Key-Vault.git?ref=V-3.0"
+  source                   = "git@github.com:ModuleASDA/Key-Vault.git?ref=V-4.0"
   purge_protection_enabled = false
   key_vault_sku_name       = "standard"
   key_vault_name           = "KeyVault-Terraform-01"
