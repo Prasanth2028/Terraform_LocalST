@@ -58,7 +58,6 @@ resource "azurerm_virtual_machine" "vm01" {
 
 resource "azurerm_network_interface" "main" {
   for_each              = { for vm in var.vms : vm.name => vm }
-  count                 = length(var.vms)
   name                  = "${each.value.name}-nic"
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
