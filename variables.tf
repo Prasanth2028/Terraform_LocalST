@@ -56,3 +56,53 @@ variable "admin_username" {
   type        = string
   default     = "azureuser"
 }
+
+variable "vms" {
+  type = list(object({
+    name = string,
+    size = string,
+    admin_username = string,
+    admin_password = string,
+    subnet_id = string,
+    image_os = string,
+    os_simple = string,
+    os_disk = object({
+      caching = string,
+      storage_account_type = string,
+    }),
+    source_image_reference = optional(object({
+      publisher = string,
+      offer     = string,
+      sku       = string,
+      version   = string
+      })),
+    tags = optional(map(string))
+  }))
+  default = [
+    {
+      name                = "vm-terraform-02"
+      size                = "Standard_B1s"
+      admin_username      = "azureuser"
+      admin_password      = "P@ssw0rd1234!"
+      subnet_id           = ""
+      image_os            = "windows"
+      os_simple           = "WindowsServer"
+      os_disk = {
+        caching              = "ReadWrite"
+        storage_account_type = "Standard_LRS"
+      }
+      source_image_reference = {
+        publisher = "MicrosoftWindowsServer"
+        offer     = "WindowsServer"
+        sku       = "2019-Datacenter"
+        version   = "latest"
+      }
+      tags = {
+        environment = "Production"
+        project     = "Terraform"
+        created_by  = "Terraform Script"
+        purpose     = "Virtual Machine Creation"
+      }
+    }
+  ]
+}

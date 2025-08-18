@@ -23,35 +23,37 @@ module "virtual-machine" {
 }
 
 resource "azurerm_virtual_machine" "vm01" {
-  name                  = "vm-terraform-02"
+  for_each = { for vm in var.vms : vm.name => vm }
+  name                  = each.value.name
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   network_interface_ids = [azurerm_network_interface.main.id] 
-  vm_size               = var.vm_size
+  vm_size               = each.value.size
 
   storage_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2019-Datacenter"
-    version   = "latest"
+    publisher = each.value.source_image_reference.publisher
+    offer     = each.value.source_image_reference.offer
+    sku       = each.value.source_image_reference.sku
+    version   = each.value.source_image_reference.version
   }
 
   storage_os_disk {
-    name              = "vm-terraform-02-osdisk"
-    caching           = "ReadWrite"
+    name              = "${each.value.name}-osdisk"
+    caching           = each.value.os_disk.caching
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = var.vm_name
-    admin_username = var.admin_username
-    admin_password = random_password.vm_password.result
+    computer_name  = each.value.name
+    admin_username = each.value.admin_username
+    admin_password = each.value.admin_password
   }
 
   os_profile_windows_config {
     provision_vm_agent = true
   }
+  tags = each.value.tags
 }
 
 resource "azurerm_network_interface" "main" {
