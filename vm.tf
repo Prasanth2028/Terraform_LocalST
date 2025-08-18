@@ -23,7 +23,7 @@ module "virtual-machine" {
 }
 
 resource "azurerm_virtual_machine" "vm01" {
-  name                  = testing00009
+  name                  = vm-terraform-02
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   network_interface_ids = [module.virtual_network.nic_id]
