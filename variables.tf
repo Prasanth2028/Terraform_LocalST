@@ -59,15 +59,15 @@ variable "admin_username" {
 
 variable "vms" {
   type = list(object({
-    name = string,
-    size = string,
+    name           = string,
+    size           = string,
     admin_username = string,
     admin_password = string,
-    subnet_id = string,
-    image_os = string,
-    os_simple = string,
+    subnet_id      = string,
+    image_os       = string,
+    os_simple      = string,
     os_disk = object({
-      caching = string,
+      caching              = string,
       storage_account_type = string,
     }),
     source_image_reference = optional(object({
@@ -75,18 +75,18 @@ variable "vms" {
       offer     = string,
       sku       = string,
       version   = string
-      })),
+    })),
     tags = optional(map(string))
-    network_interface_ids = optional(list(string))}))
+  network_interface_ids = optional(list(string)) }))
   default = [
     {
-      name                = "vm-terraform-02"
-      size                = "Standard_B1s"
-      admin_username      = "azureuser"
-      admin_password      = "P@ssw0rd1234!"
-      subnet_id           = ""
-      image_os            = "windows"
-      os_simple           = "WindowsServer"
+      name           = "vm-terraform-02"
+      size           = "Standard_B1s"
+      admin_username = "azureuser"
+      admin_password = "P@ssw0rd1234!"
+      subnet_id      = ""
+      image_os       = "windows"
+      os_simple      = "WindowsServer"
       os_disk = {
         caching              = "ReadWrite"
         storage_account_type = "Standard_LRS"
@@ -105,13 +105,13 @@ variable "vms" {
       }
     },
     {
-      name                = "vm-terraform-03"
-      size                = "Standard_B1s"
-      admin_username      = "azureuser"
-      admin_password      = "P@ssw0rd1234!"
-      subnet_id           = ""
-      image_os            = "windows"
-      os_simple           = "WindowsServer"
+      name           = "vm-terraform-03"
+      size           = "Standard_B1s"
+      admin_username = "azureuser"
+      admin_password = "P@ssw0rd1234!"
+      subnet_id      = ""
+      image_os       = "windows"
+      os_simple      = "WindowsServer"
       os_disk = {
         caching              = "ReadWrite"
         storage_account_type = "Standard_LRS"

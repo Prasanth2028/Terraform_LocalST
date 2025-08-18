@@ -15,6 +15,6 @@ resource "azurerm_key_vault_access_policy" "second_policy" {
   tenant_id    = "d4963ce2-af94-4122-95a9-644e8b01624d"
   object_id    = "4add16bc-946b-44c2-8716-eb3da5a80366"
 
-  key_permissions = ["List"]
+  key_permissions    = ["List"]
   secret_permissions = ["Get", "List"]
 }

@@ -23,11 +23,11 @@ module "virtual-machine" {
 }
 
 resource "azurerm_virtual_machine" "vm01" {
-  for_each = { for vm in var.vms : vm.name => vm }
+  for_each              = { for vm in var.vms : vm.name => vm }
   name                  = each.value.name
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  network_interface_ids = [azurerm_network_interface.main.id] 
+network_interface_ids   = [azurerm_network_interface.main[each.key].id]
   vm_size               = each.value.size
 
   storage_image_reference {
@@ -57,10 +57,10 @@ resource "azurerm_virtual_machine" "vm01" {
 }
 
 resource "azurerm_network_interface" "main" {
-  for_each              = { for vm in var.vms : vm.name => vm }
-  name                  = "${each.value.name}-nic"
-  location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
-  resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+  for_each            = { for vm in var.vms : vm.name => vm }
+  name                = "${each.value.name}-nic"
+  location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+  resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
 
   ip_configuration {
     name                          = "testconfiguration1"
