@@ -21,3 +21,35 @@ module "virtual-machine" {
   #   version   = "latest"
   # }
 }
+
+resource "azurerm_virtual_machine" "vm01" {
+  name                  = testing00009
+  location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+  resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+  network_interface_ids = [module.virtual_network.nic_id]
+  vm_size               = var.vm_size
+
+  storage_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter"
+    version   = "latest"
+  }
+
+  storage_os_disk {
+    name              = "${var.vm_name}-osdisk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  os_profile {
+    computer_name  = var.vm_name
+    admin_username = var.admin_username
+    admin_password = random_password.vm_password.result
+  }
+
+  os_profile_windows_config {
+    provision_vm_agent = true
+  }
+}
