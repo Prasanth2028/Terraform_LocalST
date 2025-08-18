@@ -37,7 +37,7 @@ resource "azurerm_virtual_machine" "vm01" {
   }
 
   storage_os_disk {
-    name              = "${azurerm_virtual_machine.vm01.name}-osdisk"
+    name              = "vm-terraform-02-osdisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -55,7 +55,7 @@ resource "azurerm_virtual_machine" "vm01" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                  = "${azurerm_virtual_machine.vm01.name}-nic"
+  name                  = "vm-terraform-02-nic"
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
 
