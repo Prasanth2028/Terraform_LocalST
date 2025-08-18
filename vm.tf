@@ -26,7 +26,7 @@ resource "azurerm_virtual_machine" "vm01" {
   name                  = "vm-terraform-02"
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  network_interface_ids = [module.virtual_network.nic_id]
+  network_interface_ids = [azurerm_network_interface.main.id] 
   vm_size               = var.vm_size
 
   storage_image_reference {
@@ -37,7 +37,7 @@ resource "azurerm_virtual_machine" "vm01" {
   }
 
   storage_os_disk {
-    name              = "${var.vm_name}-osdisk"
+    name              = "${azurerm_virtual_machine.vm01.name}-osdisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -51,5 +51,17 @@ resource "azurerm_virtual_machine" "vm01" {
 
   os_profile_windows_config {
     provision_vm_agent = true
+  }
+}
+
+resource "azurerm_network_interface" "main" {
+  name                  = "${azurerm_virtual_machine.vm01.name}-nic"
+  location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+  resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+
+  ip_configuration {
+    name                          = "testconfiguration1"
+    subnet_id                     = azurerm_subnet.manual_subnet1.id
+    private_ip_address_allocation = "Dynamic"
   }
 }
