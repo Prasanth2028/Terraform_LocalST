@@ -11,7 +11,7 @@ module "keyvault" {
 }
 
 resource "azurerm_key_vault_access_policy" "second_policy" {
-  key_vault_id = module.keyvault.key_vault_id
+  key_vault_id = module.keyvault.KeyVaultId
   tenant_id    = "d4963ce2-af94-4122-95a9-644e8b01624d"
   object_id    = "4add16bc-946b-44c2-8716-eb3da5a80366"
 
