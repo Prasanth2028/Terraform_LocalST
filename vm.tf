@@ -80,8 +80,8 @@ resource "azurerm_virtual_machine" "testing" {
     publisher = var.vmconfig["vm-terraform-02"].source_image_reference.publisher
     offer     = var.vmconfig["vm-terraform-02"].source_image_reference.offer
     sku       = var.vmconfig["vm-terraform-02"].source_image_reference.sku
-    version   = var.vmconfig["vm-terraform-02"].source_image_reference.version  
-    }
+    version   = var.vmconfig["vm-terraform-02"].source_image_reference.version
+  }
 
   storage_os_disk {
     name              = "myosdisk1"

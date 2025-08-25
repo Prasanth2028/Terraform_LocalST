@@ -134,13 +134,14 @@ variable "vms" {
 
 variable "vmconfig" {
   type = map(object({
-    name                  = string
-    size                  = string
-    admin_username        = string
-    admin_password        = string
-    subnet_id             = string
-    image_os             = string
-    os_simple            = string
+    name           = string
+    size           = string
+    admin_username = string
+    admin_password = string
+    subnet_id      = string
+    image_os       = string
+    os_simple      = string
+    computer_name  = string
     os_disk = object({
       caching              = string
       storage_account_type = string
@@ -159,10 +160,10 @@ variable "vmconfig" {
       size           = "Standard_B1s"
       admin_username = "azureuser"
       admin_password = "P@ssw0rd1234!"
-      computer_name = "vm-terraform-02"
+      computer_name  = "vm-terraform-02"
       subnet_id      = ""
-      image_os      = "windows"
-      os_simple     = "WindowsServer"
+      image_os       = "windows"
+      os_simple      = "WindowsServer"
       os_disk = {
         caching              = "ReadWrite"
         storage_account_type = "Standard_LRS"
@@ -206,5 +207,5 @@ variable "vmconfig" {
     #   }
     # }
   }
-  
+
 }
