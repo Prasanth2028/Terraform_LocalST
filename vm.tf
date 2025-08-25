@@ -70,30 +70,30 @@ module "virtual-machine" {
 # }
 
 resource "azurerm_virtual_machine" "testing" {
-  name                  = var.vmconfig.name
+  name                  = var.vmconfig["vm-terraform-02"].name
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
   network_interface_ids = azurerm_network_interface.name.id
-  vm_size               = var.vmconfig.size
+  vm_size               = var.vmconfig["vm-terraform-02"].size
 
   storage_image_reference {
-    publisher = var.vmconfig.source_image_reference.publisher
-    offer     = var.vmconfig.source_image_reference.offer
-    sku       = var.vmconfig.source_image_reference.sku
-    version   = var.vmconfig.source_image_reference.version  
+    publisher = var.vmconfig["vm-terraform-02"].source_image_reference.publisher
+    offer     = var.vmconfig["vm-terraform-02"].source_image_reference.offer
+    sku       = var.vmconfig["vm-terraform-02"].source_image_reference.sku
+    version   = var.vmconfig["vm-terraform-02"].source_image_reference.version  
     }
 
   storage_os_disk {
     name              = "myosdisk1"
-    caching           = var.vmconfig.os_disk.caching
+    caching           = var.vmconfig["vm-terraform-02"].os_disk.caching
     create_option     = "FromImage"
-    managed_disk_type = var.vmconfig.os_disk.storage_account_type
+    managed_disk_type = var.vmconfig["vm-terraform-02"].os_disk.storage_account_type
   }
 
   os_profile {
-    computer_name  = var.vmconfig.computer_name
-    admin_username = var.vmconfig.admin_username
-    admin_password = var.vmconfig.admin_password
+    computer_name  = var.vmconfig["vm-terraform-02"].computer_name
+    admin_username = var.vmconfig["vm-terraform-02"].admin_username
+    admin_password = var.vmconfig["vm-terraform-02"].admin_password
   }
   os_profile_windows_config {
     provision_vm_agent = true
@@ -101,7 +101,7 @@ resource "azurerm_virtual_machine" "testing" {
 }
 
 resource "azurerm_network_interface" "name" {
-  name                = "nic-${var.vmconfig.name}"
+  name                = "nic-${var.vmconfig["vm-terraform-02"].name}"
   location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
 
