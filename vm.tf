@@ -77,10 +77,10 @@ resource "azurerm_virtual_machine" "testing" {
   vm_size               = var.vmconfig.size
 
   storage_image_reference {
-    publisher = var.source_image_reference.publisher
-    offer     = var.source_image_reference.offer
-    sku       = var.source_image_reference.sku
-    version   =  var.source_image_reference.version  
+    publisher = var.vmconfig.source_image_reference.publisher
+    offer     = var.vmconfig.source_image_reference.offer
+    sku       = var.vmconfig.source_image_reference.sku
+    version   = var.vmconfig.source_image_reference.version  
     }
 
   storage_os_disk {
