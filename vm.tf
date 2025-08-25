@@ -73,7 +73,7 @@ resource "azurerm_virtual_machine" "testing" {
   name                  = var.vmconfig["vm-terraform-02"].name
   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  network_interface_ids = azurerm_network_interface.name.id
+  network_interface_ids = [azurerm_network_interface.name.id]
   vm_size               = var.vmconfig["vm-terraform-02"].size
 
   storage_image_reference {
