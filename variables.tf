@@ -131,3 +131,80 @@ variable "vms" {
     # }
   ]
 }
+
+variable "vmconfig" {
+  type = map(object({
+    name                  = string
+    size                  = string
+    admin_username        = string
+    admin_password        = string
+    subnet_id             = string
+    image_os             = string
+    os_simple            = string
+    os_disk = object({
+      caching              = string
+      storage_account_type = string
+    })
+    source_image_reference = object({
+      publisher = string
+      offer     = string
+      sku       = string
+      version   = string
+    })
+    tags = map(string)
+  }))
+  default = {
+    "vm-terraform-02" = {
+      name           = "vm-terraform-02"
+      size           = "Standard_B1s"
+      admin_username = "azureuser"
+      admin_password = "P@ssw0rd1234!"
+      computer_name = "vm-terraform-02"
+      subnet_id      = ""
+      image_os      = "windows"
+      os_simple     = "WindowsServer"
+      os_disk = {
+        caching              = "ReadWrite"
+        storage_account_type = "Standard_LRS"
+      }
+      source_image_reference = {
+        publisher = "MicrosoftWindowsServer"
+        offer     = "WindowsServer"
+        sku       = "2019-Datacenter"
+        version   = "latest"
+      }
+      tags = {
+        environment = "Production"
+        project     = "Terraform"
+        created_by  = "Terraform Script"
+        purpose     = "Virtual Machine Creation"
+      }
+    }
+    # "vm-terraform-03" = {
+    #   name           = "vm-terraform-03"
+    #   size           = "Standard_B1s"
+    #   admin_username = "azureuser"
+    #   admin_password = "P@ssw0rd1234!"
+    #   subnet_id      = ""
+    #   image_os      = "windows"
+    #   os_simple     = "WindowsServer"
+    #   os_disk = {
+    #     caching              = "ReadWrite"
+    #     storage_account_type = "Standard_LRS"
+    #   }
+    #   source_image_reference = {
+    #     publisher = "MicrosoftWindowsServer"
+    #     offer     = "WindowsServer"
+    #     sku       = "2019-Datacenter"
+    #     version   = "latest"
+    #   }
+    #   tags = {
+    #     environment = "Production"
+    #     project     = "Terraform"
+    #     created_by  = "Terraform Script"
+    #     purpose     = "Virtual Machine Creation"
+    #   }
+    # }
+  }
+  
+}
