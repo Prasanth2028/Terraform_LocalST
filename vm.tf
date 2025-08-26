@@ -20,7 +20,7 @@
   #   sku       = "2019-Datacenter"
   #   version   = "latest"
   # }
-}
+}#
 
 # resource "azurerm_virtual_machine" "vm01" {
 #   for_each              = { for vm in var.vms : vm.name => vm }
