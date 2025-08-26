@@ -1,19 +1,19 @@
-module "virtual-machine" {
-  source              = "Azure/virtual-machine/azurerm"
-  version             = "2.0.0"
-  resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
-  name                = var.vm_name
-  admin_username      = var.admin_username
-  admin_password      = random_password.vm_password.result
-  subnet_id           = module.virtual_network.subnet1_id
-  size                = var.vm_size
-  image_os            = "windows"
-  os_simple           = "WindowsServer"
-  os_disk = {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
+# module "virtual-machine" {
+#   source              = "Azure/virtual-machine/azurerm"
+#   version             = "2.0.0"
+#   resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+#   location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+#   name                = var.vm_name
+#   admin_username      = var.admin_username
+#   admin_password      = random_password.vm_password.result
+#   subnet_id           = module.virtual_network.subnet1_id
+#   size                = var.vm_size
+#   image_os            = "windows"
+#   os_simple           = "WindowsServer"
+#   os_disk = {
+#     caching              = "ReadWrite"
+#     storage_account_type = "Standard_LRS"
+#   }
   # source_image_reference = {
   #   publisher = "MicrosoftWindowsServer"
   #   offer     = "WindowsServer"
@@ -69,45 +69,45 @@ module "virtual-machine" {
 #   }
 # }
 
-resource "azurerm_virtual_machine" "testing" {
-  name                  = var.vmconfig["vm-terraform-02"].name
-  location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
-  resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
-  network_interface_ids = [azurerm_network_interface.name.id]
-  vm_size               = var.vmconfig["vm-terraform-02"].size
+# resource "azurerm_virtual_machine" "testing" {
+#   name                  = var.vmconfig["vm-terraform-02"].name
+#   location              = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+#   resource_group_name   = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+#   network_interface_ids = [azurerm_network_interface.name.id]
+#   vm_size               = var.vmconfig["vm-terraform-02"].size
 
-  storage_image_reference {
-    publisher = var.vmconfig["vm-terraform-02"].source_image_reference.publisher
-    offer     = var.vmconfig["vm-terraform-02"].source_image_reference.offer
-    sku       = var.vmconfig["vm-terraform-02"].source_image_reference.sku
-    version   = var.vmconfig["vm-terraform-02"].source_image_reference.version
-  }
+#   storage_image_reference {
+#     publisher = var.vmconfig["vm-terraform-02"].source_image_reference.publisher
+#     offer     = var.vmconfig["vm-terraform-02"].source_image_reference.offer
+#     sku       = var.vmconfig["vm-terraform-02"].source_image_reference.sku
+#     version   = var.vmconfig["vm-terraform-02"].source_image_reference.version
+#   }
 
-  storage_os_disk {
-    name              = "myosdisk1"
-    caching           = var.vmconfig["vm-terraform-02"].os_disk.caching
-    create_option     = "FromImage"
-    managed_disk_type = var.vmconfig["vm-terraform-02"].os_disk.storage_account_type
-  }
+#   storage_os_disk {
+#     name              = "myosdisk1"
+#     caching           = var.vmconfig["vm-terraform-02"].os_disk.caching
+#     create_option     = "FromImage"
+#     managed_disk_type = var.vmconfig["vm-terraform-02"].os_disk.storage_account_type
+#   }
 
-  os_profile {
-    computer_name  = var.vmconfig["vm-terraform-02"].computer_name
-    admin_username = var.vmconfig["vm-terraform-02"].admin_username
-    admin_password = var.vmconfig["vm-terraform-02"].admin_password
-  }
-  os_profile_windows_config {
-    provision_vm_agent = true
-  }
-}
+#   os_profile {
+#     computer_name  = var.vmconfig["vm-terraform-02"].computer_name
+#     admin_username = var.vmconfig["vm-terraform-02"].admin_username
+#     admin_password = var.vmconfig["vm-terraform-02"].admin_password
+#   }
+#   os_profile_windows_config {
+#     provision_vm_agent = true
+#   }
+# }
 
-resource "azurerm_network_interface" "name" {
-  name                = "nic-${var.vmconfig["vm-terraform-02"].name}"
-  location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
-  resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
+# resource "azurerm_network_interface" "name" {
+#   name                = "nic-${var.vmconfig["vm-terraform-02"].name}"
+#   location            = azurerm_resource_group.main["Resource_Group_Terraform_02"].location
+#   resource_group_name = azurerm_resource_group.main["Resource_Group_Terraform_02"].name
 
-  ip_configuration {
-    name                          = "testconfiguration1"
-    subnet_id                     = azurerm_subnet.manual_subnet1.id
-    private_ip_address_allocation = "Dynamic"
-  }
-}
+#   ip_configuration {
+#     name                          = "testconfiguration1"
+#     subnet_id                     = azurerm_subnet.manual_subnet1.id
+#     private_ip_address_allocation = "Dynamic"
+#   }
+# }
