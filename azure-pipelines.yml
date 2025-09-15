@@ -145,6 +145,13 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'ADO'
+              commandOptions: '-out=$(System.DefaultWorkingDirectory)/tfplan'
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Terraform Plan'
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)/tfplan'
+              artifact: 'terraform-plan'
+              publishLocation: 'pipeline'
 
   - stage: Approval
     displayName: 'Manual Approval'
